@@ -16,17 +16,17 @@ let finalCountdown = () => {
   const sec = document.getElementById("sec");
 
   sec.textContent -= 1;
-// if (sec.textContent < 10) {
-//     sec.textContent = 0 + sec.textContent
-// }
+if (sec.textContent < 10) {
+    sec.textContent = sec.textContent.padStart(2, '0')
+}
 
-// if (min.textContent < 10) {
-//     min.textContent = `0${min.textContent}`
-// }
+if (min.textContent < 10) {
+    min.textContent = min.textContent.padStart(2, '0')
+}
 
-// if (hour.textContent < 10) {
-//     hour.textContent = `0${hour.textContent}`
-// }
+if (hour.textContent < 10) {
+    hour.textContent = hour.textContent.padStart(2, '0')
+}
 
   if (sec.textContent == 0) {
     min.textContent -= 1;
@@ -44,4 +44,4 @@ let finalCountdown = () => {
   }
 };
 
-setInterval(finalCountdown, 10);
+setInterval(finalCountdown, 100);

@@ -2,8 +2,8 @@
 
 const image = document.getElementById('cookie');
 
-let secAfterClick =0;
-let secBeforeClick = secAfterClick;
+
+let dateBeforeClick = 0;
 
 image.onclick = () => {
     
@@ -14,19 +14,15 @@ image.onclick = () => {
     }
 
     const click = document.getElementById('clicker__counter');
-    click.textContent = +click.textContent + 1 ;
+    click.textContent = +click.textContent + 1;
 
     const speedOfClick = document.getElementById('speed_of_click');
-
     
-    let dateAfterClick = new Date();
-    secAfterClick = dateAfterClick.getMilliseconds() / 1000;
+    //console.log(dateBeforeClick +' бифор')
+    let dateAfterClick = new Date().getTime();
+    const speed = 1 / ((dateAfterClick - dateBeforeClick) / 1000);
+    speedOfClick.textContent = speed.toFixed(2);
+    dateBeforeClick = dateAfterClick;
 
-    const speed = 1 / (secAfterClick - secBeforeClick);
-
-    console.log(dateAfterClick);
-    console.log(secAfterClick);
-    console.log(secBeforeClick);
-
-    speedOfClick.textContent = speed.toFixed(2)
+    //console.log(dateAfterClick +' афтер');
 }
