@@ -4,7 +4,7 @@ body {
   font-family: Helvetica;
   font-weight: 300;
 }
-.menu {
+.menu, .menu1 {
   display: flex;
   list-style-type: none;
   justify-content: space-around;
@@ -14,30 +14,30 @@ body {
   margin: 0;
 }
 
-.menu__link {
+.menu__link, .menu__link1{
   text-decoration: none;
   color: #000;
 }
 
-.menu__link:hover {
+.menu__link:hover, .menu__link1:hover{
   color: whitesmoke;
 }
 
-.menu__item {
+.menu__item, .menu__item1{
   position: relative;
 }
 
-.menu_sub {
+.menu_sub, .menu_sub1{
   display: none;
   position: absolute;
   padding: 10px 10px 0 10px;
 }
 
-.menu_sub .menu__item {
+.menu_sub .menu__item, .menu_sub1 .menu__item1{
   margin-bottom: 10px;
 }
 
-.menu_active {
+.menu_active{
   display: block;
   left: -10px;
   top: 100%;

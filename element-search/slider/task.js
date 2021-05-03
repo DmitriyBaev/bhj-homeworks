@@ -1,29 +1,51 @@
 const rightButton = document.querySelector(".slider__arrow_next");
-console.log(rightButton);
 const leftButton = document.querySelector(".slider__arrow_prev");
-console.log(leftButton);
 const sliders = document.getElementsByClassName("slider__item");
-console.log(sliders);
 const arrSliders = Array.from(sliders);
-console.log(arrSliders);
+const dots = document.getElementsByClassName("slider__dot");
+const arrDots = Array.from(dots);
 
-rightButton.onklick = () => {
-  
-  for (let i = 0; i <= arrSliders.length; i++) {
-    if (i < arrSliders.length) {
-      arrSliders[i].className = slider__item;
-      arrSliders[i + 1].className += slider__item_active;
-    }
-    if (i == arrSliders.length) {
-      arrSliders[i].className = slider__item;
-      arrSliders[0].className += slider__item_active;
-    }
-  }
+function changedImgRight() {
+  arrSliders[i].className = "slider__item";
+  i < arrSliders.length - 1
+    ? (arrSliders[i + 1].className += " slider__item_active")
+    : ((i = -1), (arrSliders[i + 1].className += " slider__item_active"));
+
+  i += 1;
+
+  activeDot();
 }
 
-leftButton.onklick = () => {
-  for (let i = arrSliders.length; i == 0; i--) {
-    arrSliders[arrSliders.length].className = slider__item;
-    arrSliders[arrSliders.length - 1].className += slider__item_active;
-  }
-};
+function changedImgLeft() {
+  arrSliders[i].className = "slider__item";
+  i > 0
+    ? (arrSliders[i - 1].className += " slider__item_active")
+    : ((i = arrSliders.length),
+      (arrSliders[i - 1].className += " slider__item_active"));
+
+  i -= 1;
+
+  activeDot();
+}
+
+function activeDot() {
+  const index = arrSliders.findIndex((element) =>
+    element.className.includes("slider__item_active")
+  );
+  console.log(index);
+  arrDots.forEach((elem) => {
+    elem.className = "slider__dot";
+  });
+  arrDots[index].className += " slider__dot_active";
+}
+
+arrDots.forEach((elem) => {
+  elem.onclick = () => {
+    const index = arrDots.indexOf(elem);
+    arrSliders[index].className += " slider__item_active";
+  };
+});
+
+let i = 0;
+rightButton.onclick = changedImgRight;
+leftButton.onclick = changedImgLeft;
