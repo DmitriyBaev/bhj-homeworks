@@ -10,11 +10,12 @@ function dropDownList() {
     dropdownList.className = "dropdown__list";
   } else {
     dropdownList.className += " dropdown__list_active";
+
     arrDropLinks.forEach((element) => {
-      element.onclick = () => {
+      element.onclick = (event) => {
         dropdownValue.textContent = element.textContent;
         dropdownList.className = "dropdown__list";
-        return false;
+        event.preventDefault()
       }
     })
   }

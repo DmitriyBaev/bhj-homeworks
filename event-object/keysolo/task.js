@@ -17,6 +17,21 @@ class Game {
   }
 
   registerEvents() {
+    let letter
+    const currentSymbol = this.currentSymbol.textContent;
+    console.log (currentSymbol)
+    document.addEventListener('keyup', e => {
+    letter = e.key;
+    console.log (letter)
+    });
+    
+
+      if(letter == currentSymbol) {
+        this.success()
+      } else {
+        this.fail()
+      }
+    
     /*
       TODO:
       Написать обработчик события, который откликается
