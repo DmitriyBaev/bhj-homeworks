@@ -68,6 +68,22 @@ class Autocomplete {
   }
 
   getMatches( text ) {
+const options = this.input.querySelectorAll('option');
+const arrOptions = Array.from(options);
+
+    arrOptions.forEach(element => {
+      this.input.addEventListener('input', e => {
+         if (text.includes(`${'this.input.options[this.input.SelectedIndex].text'}`)){
+        return array.push({
+          text: `${'this.input.options[this.input.SelectedIndex].text'}`,
+          value: `${'this.input.value'}`
+        })
+      }
+      })
+     
+    });
+    
+
     /*
       TODO: этот метод нужно дописать
       text - фраза, которую вводят в поле поиска
