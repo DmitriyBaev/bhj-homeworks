@@ -4,7 +4,7 @@ const rotators = document.querySelectorAll(".rotator__case");
 const arrayRotators = Array.from(rotators);
 let exIndex,
   index,
-  speed = 1000;
+  speed;
 
 function changeSlogan() {
   exIndex = arrayRotators.findIndex((elem) =>
@@ -21,6 +21,8 @@ function changeSlogan() {
   arrayRotators[index].style.color = arrayRotators[index].dataset.color;
   speed = arrayRotators[index].dataset.speed;
   console.log(speed)
+
+  setTimeout(changeSlogan, speed)
 }
 
-setInterval(changeSlogan, speed);
+changeSlogan()
