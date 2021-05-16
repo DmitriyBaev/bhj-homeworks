@@ -28,7 +28,9 @@ function setQuestion() {
 }
 
 //chat.setAttribute("required", "") Почему не срабатывает?
-chat.setAttribute('minlength', 1);
+//chat.setAttribute('minlength', 1);
+
+
 
 chat.addEventListener("keyup", (e) => {
   if (e.code == "Enter" || e.code == "NumpadEnter") {
@@ -41,7 +43,7 @@ chat.addEventListener("keyup", (e) => {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    if (chat.checkValidity()) { // Почему то не срабатывает?
+    if (words.trim() !== '') {
       messages.innerHTML += `
   <div class="message message_client">
     <div class="message__time">${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}</div>
@@ -50,6 +52,8 @@ chat.addEventListener("keyup", (e) => {
     </div>
   </div>
 `;
+
+      chat.value = '';
 
       messages.innerHTML += `
   <div class="message">
@@ -60,10 +64,23 @@ chat.addEventListener("keyup", (e) => {
   </div>
 `;
 
-      if (lastMessage.getBoundingClientRect().top < viewportHeight) {
-        // сообщение нужно переместить в зону видимости
+      if (messages.lastElementChild.getBoundingClientRect().top > viewportHeight) {
+        scroll(0, 1000)
       }
+      console.log(messages.lastElementChild.getBoundingClientRect().top)
     }
   }
 });
+
+if(!chat.addEventListener("keyup", () => {
+  
+})) {
+  setTimeout(setQuestion, 30000)
+}
+
+
+
+
+
+
 

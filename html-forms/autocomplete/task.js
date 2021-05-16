@@ -68,21 +68,20 @@ class Autocomplete {
   }
 
   getMatches( text ) {
-const options = this.input.querySelectorAll('option');
+const options = this.input.options;
 const arrOptions = Array.from(options);
-
+let array = [];
     arrOptions.forEach(element => {
-      this.input.addEventListener('input', e => {
-         if (text.includes(`${'this.input.options[this.input.SelectedIndex].text'}`)){
-        return array.push({
-          text: `${'this.input.options[this.input.SelectedIndex].text'}`,
-          value: `${'this.input.value'}`
+      
+         if ((element.text).includes(text)){
+        array.push({
+          text: `${element.text}`,
+          value: `${element.value}`
         })
       }
-      })
-     
-    });
     
+    });
+    return array
 
     /*
       TODO: этот метод нужно дописать

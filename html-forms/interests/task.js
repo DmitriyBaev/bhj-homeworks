@@ -23,21 +23,21 @@ arrayUlChild.forEach(element => {
 
 
 
-    arraychildInput.forEach(elem => {
-        elem.onchange = () => {
+    // arraychildInput.forEach(elem => {
+    //     elem.onchange = () => {
 
             
-            function allChecked(elm) {
-                return elm.checked = true
-            }
+    //         function allChecked(elm) {
+    //             return elm.checked = true
+    //         }
 
-            if (arraychildInput.every(allChecked)) {
-                parentInput.checked = true
-            } else {
-                parentInput.indeterminate = true
-            }
-        }
-    })
+    //         if (arraychildInput.every(allChecked)) {
+    //             parentInput.checked = true
+    //         } else {
+    //             parentInput.indeterminate = true
+    //         }
+    //     }
+    // })
 
 });
 
