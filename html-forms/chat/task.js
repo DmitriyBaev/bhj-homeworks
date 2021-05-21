@@ -1,22 +1,16 @@
 "use strict";
 
 const chatWidget = document.querySelector(".chat-widget");
-const time = new Date();
-let hours = String(time.getHours());
-let minutes = String(time.getMinutes())
 const messages = document.querySelector(".chat-widget__messages");
 const chat = document.getElementById("chat-widget__input");
 const botMessages = ['До свидания!', 'Напишите завтра', 'Мы сильно заняты, ждите', 'Все в отпуске', 'Нет желания с Вами общаться'];
 const viewportHeight = window.innerHeight;
 const lastMessage = messages.lastElementChild;
 
-chatWidget.onclick = () => {
-  chatWidget.classList.add("chat-widget_active");
-  setTimeout(setQuestion, 30000);
-};
-
-
-function setQuestion() {
+const timer = function setQuestion() {
+  const time = new Date();
+  let hours = String(time.getHours());
+  let minutes = String(time.getMinutes())
   messages.innerHTML += `
   <div class="message">
     <div class="message__time">${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}</div>
@@ -25,26 +19,41 @@ function setQuestion() {
     </div>
   </div>
 `
+if (messages.lastElementChild.getBoundingClientRect().top > viewportHeight) {
+      messages.lastElementChild.scrollIntoView({ block: "center", behavior: "smooth" })
+    }
 }
 
-//chat.setAttribute("required", "") Почему не срабатывает?
-//chat.setAttribute('minlength', 1);
+chatWidget.onclick = () => {
+  chatWidget.classList.add("chat-widget_active");
 
-
-
-chat.addEventListener("keyup", (e) => {
-  if (e.code == "Enter" || e.code == "NumpadEnter") {
-    const words = chat.value;
-
-
-    function getRandomIntInclusive(min, max) { // MDN в помощь
-      min = Math.ceil(min);
-      max = Math.floor(max);
-      return Math.floor(Math.random() * (max - min + 1)) + min;
+  setInterval(() => {
+    setTimeout(timer, 0)
+    if (chat.value.trim()) {
+      clearTimeout(timer)
     }
+    
 
-    if (words.trim() !== '') {
-      messages.innerHTML += `
+  }, 3000)
+
+  chat.addEventListener("keyup", (e) => {
+
+    const words = chat.value;
+    if (e.code == "Enter" || e.code == "NumpadEnter") {
+
+
+
+      function getRandomIntInclusive(min, max) { // MDN в помощь
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      if (words.trim() !== '') {
+        const time = new Date();
+        let hours = String(time.getHours());
+        let minutes = String(time.getMinutes())
+        messages.innerHTML += `
   <div class="message message_client">
     <div class="message__time">${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}</div>
     <div class="message__text">
@@ -53,9 +62,9 @@ chat.addEventListener("keyup", (e) => {
   </div>
 `;
 
-      chat.value = '';
+        chat.value = '';
 
-      messages.innerHTML += `
+        messages.innerHTML += `
   <div class="message">
     <div class="message__time">${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}</div>
     <div class="message__text">
@@ -64,19 +73,25 @@ chat.addEventListener("keyup", (e) => {
   </div>
 `;
 
-      if (messages.lastElementChild.getBoundingClientRect().top > viewportHeight) {
-        scroll(0, 1000)
-      }
-      console.log(messages.lastElementChild.getBoundingClientRect().top)
-    }
-  }
-});
+        if (messages.lastElementChild.getBoundingClientRect().top > viewportHeight) {
+          messages.lastElementChild.scrollIntoView({ block: "center", behavior: "smooth" })
+        }
 
-if(!chat.addEventListener("keyup", () => {
-  
-})) {
-  setTimeout(setQuestion, 30000)
-}
+      }
+    }
+  });
+
+};
+
+
+
+
+
+
+
+
+
+
 
 
 

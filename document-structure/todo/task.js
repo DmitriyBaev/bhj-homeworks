@@ -1,36 +1,44 @@
 'use strict'
 
 const input = document.getElementById("task__input");
+const button = document.getElementById("tasks__add");
 
-input.addEventListener('keydown', (e) => {
+const addTask = () => {
+    input.value = input.value.trim();
+    if (input.value) {
 
-    if (e.code == "Enter" || e.code == "NumpadEnter") {
+        const work = document.createElement('div');
+        work.classList.add('task');
+        work.innerHTML = (`
+        <div class="task__title">
+        ${input.value}
+      </div>
+      <a href="#" class="task__remove">&times;</a>`);
 
-        input.value = input.value.trim();
-        if (input.value) {
-            const work = document.createElement('div');
-            work.classList.add('task');
-            work.innerHTML = (`
-            <div class="task__title">
-            ${input.value}
-          </div>
-          <a href="#" class="task__remove">&times;</a>`);
 
-            const tasksList = document.getElementById("tasks__list");
-            tasksList.appendChild(work);
+        const tasksList = document.getElementById("tasks__list");
+        tasksList.appendChild(work);
 
-            input.value = '';
+        input.value = '';
 
-            const taskRemove = document.querySelectorAll('.task__remove');
-            const arrayTaskRemove = Array.from(taskRemove);
+        const taskRemove = document.querySelectorAll('.task__remove');
+        const arrayTaskRemove = Array.from(taskRemove);
+        arrayTaskRemove.forEach(element => {
+            element.onclick = () => element.closest('.task').remove()
+        })
 
-            arrayTaskRemove.forEach(element => {
-                element.onclick = () => {
-                    const parentTask = element.closest('.task');
-                    parentTask.remove()
-                }
-            });
-        }
     }
+}
+
+input.addEventListener('keyup', (e) => {
+
+    if (e.key == "Enter") {
+        addTask()
+    }
+    e.preventDefault()
 })
 
+button.addEventListener('click', (e) => {
+    addTask()
+    e.preventDefault()
+})

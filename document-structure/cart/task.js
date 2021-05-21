@@ -22,7 +22,7 @@ arrInc.forEach((element, index) => {
 
 arrDec.forEach((element, index) => {
     element.onclick = () => {
-        if (arrProductQuantity[index].textContent > 0) {
+        if (arrProductQuantity[index].textContent > 1) {
             arrProductQuantity[index].textContent = arrProductQuantity[index].textContent - 1;
         }
     }
@@ -33,25 +33,22 @@ arrAddButton.forEach((element, index) => {
 
         const productsInBasket = document.querySelectorAll('.cart__product');
         const arrProductsInBasket = Array.from(productsInBasket);
-        arrProductsInBasket.forEach(elem => {
-            if (elem.dataset.id == arrProduct[index].dataset.id) {
-                elem.querySelector('.cart__product-count').textContent = +elem.querySelector('.cart__product-count').textContent + +arrProductQuantity[index].textContent;
-            } else {
 
-// Если вставить сюда блок с созданием элемента, то при нажатии 
-// на кнопку "Добавить" ничего не происходит
-            }
-        });
-
-
-
-        const addInBasket = document.createElement('div');
-        addInBasket.classList.add('cart__product');
-        addInBasket.setAttribute('data-id', `${arrProduct[index].dataset.id}`);
-        addInBasket.innerHTML = (`
+        const concidence = arrProductsInBasket.find(elem =>
+            elem.dataset.id == arrProduct[index].dataset.id
+        )
+        if (concidence) {
+            concidence.querySelector('.cart__product-count').textContent = +concidence.querySelector('.cart__product-count').textContent + +arrProductQuantity[index].textContent;
+        } else {
+            const addInBasket = document.createElement('div');
+            addInBasket.classList.add('cart__product');
+            addInBasket.setAttribute('data-id', `${arrProduct[index].dataset.id}`);
+            addInBasket.innerHTML = (`
         <img class="cart__product-image" src='${arrProductImage[index].getAttribute('src')}'>
             <div class="cart__product-count">${arrProductQuantity[index].textContent}</div>`)
-        document.querySelector('.cart__products').appendChild(addInBasket);
+            document.querySelector('.cart__products').appendChild(addInBasket);
+        }
+
     }
 });
 
