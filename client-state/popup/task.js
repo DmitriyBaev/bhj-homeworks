@@ -12,8 +12,10 @@ window.addEventListener('load', () => {
         }
     }
 
-    if (!(getCookie == 'deactive')) {
-        const subscribeModal = document.getElementById('subscribe-modal');
+    const subscribeModal = document.getElementById('subscribe-modal');
+    if (getCookie == 'deactive') {
+        subscribeModal.classList.remove('modal_active');
+    } else {
         subscribeModal.classList.add('modal_active')
 
         const modalClose = document.querySelector('.modal__close_times');
