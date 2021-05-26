@@ -32,6 +32,18 @@ xhr.addEventListener('readystatechange', () => {
                 xhr2.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
                 xhr2.send(`vote=${response.id}&answer=${index}`)
 
+                xhr2.onload = () => {
+                    if (xhr2.status === 200) {
+                        let data = JSON.parse(xhr2.responseText);
+                        console.log(data)
+                        data.stat.forEach(element => {
+                            const statAnswer = document.createElement('div')
+                            statAnswer.innerText = `${element.answer} : ${element.votes}`
+                            pollTitle.appendChild(statAnswer)
+                            pollAnswers.innerHTML = ''
+                        })
+                    }
+                }
             }
         });
 

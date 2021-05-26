@@ -1,15 +1,20 @@
 'use strict'
-const xhr = new XMLHttpRequest();
-xhr.open('GET', 'https://netology-slow-rest.herokuapp.com/upload.php');
-xhr.send();
 
-xhr.addEventListener('readystatechange', () => {
-    const progress = document.getElementById('progress');
-    if (xhr.readyState === xhr.DONE && xhr.status === 200) {
-        xhr.upload.onprogress = () => {
+const sendButton = document.getElementById('send');
+const form = document.getElementById('form')
 
-            progress.value = xhr.upload.onprogress
-        }
+sendButton.addEventListener('click', () => {
+    const xhr = new XMLHttpRequest();
+
+    xhr.upload.onprogress = (e) => {
+        const progress = document.getElementById('progress');
+        progress.value = `${e.loaded / e.total}`
+        
     }
+    xhr.open('GET', 'https://netology-slow-rest.herokuapp.com/upload.php');
+    xhr.send(form);
+
+    
 })
+
 
