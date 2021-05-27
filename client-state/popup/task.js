@@ -1,9 +1,11 @@
 'use strict'
 
 window.addEventListener('load', () => {
-    const getCookie = (subscribeModal) => {
+    const subscribeModal = document.getElementById('subscribe-modal');
+
+    const getCookie = (subModal) => {
         const value = "; " + document.cookie;
-        let parts = value.split("; " + subscribeModal + "=");
+        let parts = value.split("; " + subModal + "=");
         if (parts.length === 2) {
             return parts
                 .pop()
@@ -12,8 +14,7 @@ window.addEventListener('load', () => {
         }
     }
 
-    const subscribeModal = document.getElementById('subscribe-modal');
-    if (getCookie == 'deactive') {
+    if (getCookie('subModal') == 'deactive') {
         subscribeModal.classList.remove('modal_active');
     } else {
         subscribeModal.classList.add('modal_active')
@@ -21,7 +22,7 @@ window.addEventListener('load', () => {
         const modalClose = document.querySelector('.modal__close_times');
         modalClose.onclick = () => {
             subscribeModal.classList.remove('modal_active');
-            document.cookie = 'subscribeModal=deactive'
+            document.cookie = 'subModal=deactive'
         }
     }
 })
