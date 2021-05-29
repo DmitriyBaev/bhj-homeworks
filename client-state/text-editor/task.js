@@ -16,5 +16,5 @@ window.addEventListener('load', () => {
 const clearButton = document.getElementById('clear');
 clearButton.addEventListener('click', () => {
     editor.value = '';
-    //delete localStorage.text //Это на случай, если надо и из памяти удалить
+    localStorage.removeItem('text')
 })

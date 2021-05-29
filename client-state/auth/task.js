@@ -4,11 +4,28 @@ const signin = document.getElementById('signin');
 signin.classList.add('signin_active');
 
 const signinBtn = document.getElementById('signin__btn');
+const login = document.getElementsByName('login')[0];
+const password = document.getElementsByName('password')[0];
+
+function toWelcome() {
+    const welcome = document.getElementById('welcome');
+    signin.classList.remove('signin_active');
+    signin.classList.add('signin');
+
+    welcome.classList.remove('welcome');
+    welcome.classList.add('welcome_active');
+
+    const userId = document.getElementById('user_id');
+    userId.innerText = `${localStorage.userId}`
+}
+
+if (localStorage.userId) {
+    toWelcome()
+}
+
 signinBtn.onclick = (e) => {
     const form = document.getElementById('signin__form')
     const formData = new FormData(form);
-    const login = document.getElementsByName('login')[0];
-    const password = document.getElementsByName('password')[0];
 
     formData.append(login.value, password.value)
 
@@ -21,25 +38,9 @@ signinBtn.onclick = (e) => {
             const response = JSON.parse(xhr.responseText);
 
             if (response.success === true) {
-                signin.classList.remove('signin_active');
                 localStorage.userId = response.user_id;
+                toWelcome()
 
-                const welcome = document.getElementById('welcome');
-                welcome.classList.add('welcome_active');
-
-                const userId = document.getElementById('user_id');
-                userId.innerText = `${localStorage.userId}`
-
-                const logoutButton = document.createElement('button');
-                logoutButton.classList.add('btn')
-                logoutButton.innerText = 'Выйти'
-                const body = document.getElementsByTagName('body')[0]
-                body.appendChild(logoutButton)
-
-                logoutButton.onclick = () => {
-                    localStorage.clear()
-                    window.location.reload()
-                }
             } else {
                 alert('«Неверный логин/пароль»');
                 login.value = '';
@@ -49,4 +50,18 @@ signinBtn.onclick = (e) => {
     }
 
     e.preventDefault()
+}
+
+const logoutButton = document.getElementById('logout__btn');
+
+logoutButton.onclick = () => {
+    localStorage.clear();
+
+    welcome.classList.remove('welcome_active');
+    welcome.classList.add('welcome');
+
+    signin.classList.remove('signin');
+    signin.classList.add('signin_active');
+    login.value = '';
+    password.value = '';
 }
